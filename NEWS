@@ -1,0 +1,40 @@
+Summary of important user-visible changes for octave-rf:
+
+## Version 0.1.0 (2026-03-27)
+
+Initial release.
+
+### New functions
+
+**S-parameter objects:**
+- `sparameters` — S-parameter struct constructor (N×N×K array + frequency vector)
+- `rfparam` — extract single S-parameter element by port indices
+
+**Chain scattering (T) parameters:**
+- `s2t` — convert 2-port S-parameters to T-parameters
+- `t2s` — convert T-parameters to S-parameters
+
+**Network operations:**
+- `cascadesparams` — cascade two or more 2-port networks via T-matrix multiplication
+- `deembedsparams` — de-embed fixture S-parameters from a measured network
+- `embedsparams` — embed a DUT inside fixture S-parameters (inverse of deembedsparams)
+
+**Parameter conversions:**
+- `s2z` / `z2s` — S ↔ impedance (Z) parameters
+- `s2y` / `y2s` — S ↔ admittance (Y) parameters
+- `s2abcd` / `abcd2s` — S ↔ ABCD (chain/transmission) parameters
+- `s2h` / `h2s` — S ↔ hybrid (H) parameters
+- `s2g` / `g2s` — S ↔ inverse hybrid (G) parameters
+
+**Mixed-mode (differential pairs):**
+- `s2sdd` — single-ended to differential-mode S-parameters
+- `s2scc` — single-ended to common-mode S-parameters
+- `smm2s` — mixed-mode to single-ended S-parameters
+- `s2smm` — single-ended to full mixed-mode S-parameter matrix
+
+**Port operations:**
+- `snp2smp` — reorder ports of an N-port S-parameter matrix
+- `renormsparams` — renormalize S-parameters to a different reference impedance
+
+**Octave compatibility utilities:**
+- `ifft_symmetric` — Octave-compatible equivalent of MATLAB's `ifft(x, 'symmetric')`

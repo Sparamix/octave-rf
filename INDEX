@@ -1,0 +1,45 @@
+rf >> RF and Microwave Network Parameter Utilities
+
+S-Parameter Objects
+  sparameters
+  rfparam
+
+Chain Scattering (T) Parameters
+  s2t
+  t2s
+
+Network Operations
+  cascadesparams
+  deembedsparams
+  embedsparams
+
+Impedance (Z) Parameters
+  s2z
+  z2s
+
+Admittance (Y) Parameters
+  s2y
+  y2s
+
+ABCD (Chain/Transmission) Parameters
+  s2abcd
+  abcd2s
+
+Hybrid (H/G) Parameters
+  s2h
+  h2s
+  s2g
+  g2s
+
+Mixed-Mode (Differential/Common-Mode)
+  s2sdd
+  s2scc
+  smm2s
+  s2smm
+
+Port Operations
+  snp2smp
+  renormsparams
+
+Octave Compatibility Utilities
+  ifft_symmetric
