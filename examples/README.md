@@ -37,7 +37,7 @@ All files are Touchstone 1.0 format, 50 Ω reference.
 
 ## Touchstone Reader
 
-`fromtouchn.m` is included for reading Touchstone files without MATLAB's RF Toolbox.
+`fromtouchn.m` is included for reading Touchstone files in GNU Octave.
 It is taken from the IEEE P370 TG3 repository (Francesco de Paulis, UMR-EMC Lab, 2006)
 and supports S1P–S4P and larger, in RI / MA / dB formats, with Hz/kHz/MHz/GHz units.
 

@@ -8,9 +8,9 @@ Description: S-parameter network conversions (S<->T, S<->Z, S<->Y, S<->ABCD,
  S<->H, S<->G), de-embedding, cascading, port reordering, renormalization,
  and mixed-mode conversion for differential pairs.
  Provides the utility functions needed to run IEEE P370 de-embedding code
- in Octave without MATLAB's proprietary RF Toolbox.
- This is the first RF/microwave parameter package for GNU Octave.
+ independently in GNU Octave while remaining compatible with MATLAB RF
+ Toolbox syntax.
 Categories: RF Microwave Signal-Integrity
 Depends: octave (>= 6.0.0)
 License: BSD-3-Clause
-Url: https://github.com/OpenSNPTools/octave-rf
+Url: https://github.com/Sparamix/octave-rf

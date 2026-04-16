@@ -5,8 +5,9 @@
 ## Returns a @var{K}x1 column vector of the S@var{ij} element over all
 ## @var{K} frequency points, where @var{i} and @var{j} are 1-indexed port numbers.
 ##
-## This is an Octave replacement for the MATLAB RF Toolbox @code{rfparam}
-## function.  Equivalent to @code{squeeze(s.Parameters(i,j,:))}.
+## Provides the same calling signature as MATLAB RF Toolbox's @code{rfparam}
+## so that code written for either environment runs unmodified.  Equivalent
+## to @code{squeeze(s.Parameters(i,j,:))}.
 ##
 ## @example
 ## s21 = rfparam(s, 2, 1);   % extract S21 over all frequencies

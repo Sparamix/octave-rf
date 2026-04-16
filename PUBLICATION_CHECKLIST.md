@@ -49,9 +49,9 @@ identified and applied.
 
 ### B1 — Create the repo
 
-1. Go to https://github.com/organizations/OpenSNPTools/repositories/new
+1. Go to https://github.com/new (create under the `Sparamix` account)
 2. Repository name: `octave-rf`
-3. Description: `RF and microwave network parameter utilities for GNU Octave — first RF/microwave package for GNU Octave`
+3. Description: `RF and microwave network parameter utilities for GNU Octave — enables IEEE P370 de-embedding code to run independently in Octave while remaining compatible with MATLAB RF Toolbox syntax`
 4. Visibility: **Public**
 5. License: **BSD 3-Clause**
 6. Do NOT initialize with README (you'll push existing code)
@@ -77,7 +77,7 @@ git init
 git pull D:/Claude_work/sparamix_py370 octave-rf-standalone
 
 # Add the GitHub remote and push
-git remote add origin https://github.com/OpenSNPTools/octave-rf.git
+git remote add origin https://github.com/Sparamix/octave-rf.git
 git branch -M main
 git push -u origin main
 ```
@@ -176,20 +176,21 @@ Save the output — you'll need it for the `rf.yaml` package index file.
 
 ### C4 — Create GitHub Release
 
-1. Go to https://github.com/OpenSNPTools/octave-rf/releases/new
+1. Go to https://github.com/Sparamix/octave-rf/releases/new
 2. Tag: `v0.1.0` (create new tag on main)
 3. Release title: `rf 0.1.0 — Initial release`
 4. Description (copy-paste):
 
 ```
-## rf 0.1.0 — First RF/microwave package for GNU Octave
+## rf 0.1.0 — S-parameter utilities for GNU Octave
 
 Provides the S-parameter utility functions needed to run IEEE P370 de-embedding
-code in Octave without MATLAB's RF Toolbox.
+code independently in Octave while remaining compatible with MATLAB RF Toolbox
+syntax.
 
 ### Install
 ```octave
-pkg install https://github.com/OpenSNPTools/octave-rf/releases/download/v0.1.0/rf-0.1.0.tar.gz
+pkg install https://github.com/Sparamix/octave-rf/releases/download/v0.1.0/rf-0.1.0.tar.gz
 pkg load rf
 ```
 
@@ -230,10 +231,10 @@ description: >-
   S-parameter conversions (S↔T, S↔Z, S↔Y, S↔ABCD, S↔H, S↔G),
   de-embedding, cascading, port reordering, renormalization, and
   mixed-mode conversion for differential pairs.
-  Provides the functions needed to run IEEE P370 de-embedding code
-  in Octave without MATLAB's proprietary RF Toolbox.
-homepage: 'https://github.com/OpenSNPTools/octave-rf'
-icon: 'https://raw.githubusercontent.com/OpenSNPTools/octave-rf/main/doc/icon.png'
+  Enables IEEE P370 de-embedding code to run independently in GNU
+  Octave while remaining compatible with MATLAB RF Toolbox syntax.
+homepage: 'https://github.com/Sparamix/octave-rf'
+icon: 'https://raw.githubusercontent.com/Sparamix/octave-rf/main/doc/icon.png'
 maintainer:
   - 'Giorgi Maghlakelidze <giorgi.snp@pm.me>'
 name: rf
@@ -241,7 +242,7 @@ versions:
   - id: 'v0.1.0'
     date: '2026-03-28'
     sha256: '<paste SHA256 from Step C3>'
-    url: 'https://github.com/OpenSNPTools/octave-rf/releases/download/v0.1.0/rf-0.1.0.tar.gz'
+    url: 'https://github.com/Sparamix/octave-rf/releases/download/v0.1.0/rf-0.1.0.tar.gz'
     depends:
       - pkg: 'octave'
         min: '6.0.0'
@@ -276,13 +277,12 @@ Fix any errors before submitting the PR.
 Adds the `rf` package providing S-parameter conversions and network operations
 for RF and microwave engineering.
 
-This is the first RF/microwave package for GNU Octave, filling the gap left by
-MATLAB's proprietary RF Toolbox. It specifically enables IEEE P370 de-embedding
-code to run in Octave without modification.
+Enables IEEE P370 de-embedding code to run independently in GNU Octave while
+remaining compatible with MATLAB RF Toolbox syntax.
 
 - 24 functions, 81 BIST tests, 0 failures
 - Tested on Octave 8, 9, 10, 11
-- Full validation report: https://github.com/OpenSNPTools/octave-rf/blob/main/doc/VALIDATION_REPORT.md
+- Full validation report: https://github.com/Sparamix/octave-rf/blob/main/doc/VALIDATION_REPORT.md
 - License: BSD-3-Clause
 ```
 
@@ -303,7 +303,7 @@ code to run in Octave without modification.
 ### E2 — Signal integrity community
 
 - [ ] Post to **SI-List** (si-list@freelists.org)
-  - Announce that IEEE P370 de-embedding now works in Octave without MATLAB
+  - Announce that IEEE P370 de-embedding now runs independently in Octave
   - Include installation command, link to GitHub and examples
 
 - [ ] Post to **Signal Integrity Academy** forums (if applicable)

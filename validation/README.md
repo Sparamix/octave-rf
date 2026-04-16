@@ -1,14 +1,14 @@
 # octave-rf Phase V — Validation against MATLAB RF Toolbox
 
-This directory holds the infrastructure to validate `octave-rf` against
-MATLAB's proprietary RF Toolbox, for two properties:
+This directory holds the infrastructure to cross-check `octave-rf` against
+MATLAB RF Toolbox for two properties:
 
 1. **Usage parity** — function signatures, argument conventions, and data
-   structures match MATLAB's as closely as legally/practically possible, so
-   user code calling `octave-rf` functions ports to MATLAB RF Toolbox (or
-   vice-versa) with minimal changes.
-2. **Numerical parity** — for identical inputs, both implementations produce
-   identical outputs to floating-point precision.
+   structures line up with MATLAB's as closely as practical, so the same
+   user code (e.g. IEEE P370 de-embedding scripts) runs in either
+   environment without changes.
+2. **Numerical parity** — for identical inputs, both produce identical
+   outputs to floating-point precision.
 
 ---
 
@@ -254,9 +254,10 @@ script works.
 
 ## Why this matters
 
-For `octave-rf` to be credible as a drop-in replacement for users who
-cannot afford MATLAB + RF Toolbox, we have to demonstrate — not just claim
-— that:
+For `octave-rf` to be a credible independent runtime for IEEE P370
+de-embedding code — while staying compatible with MATLAB RF Toolbox so the
+same user code runs in either environment — we have to demonstrate (not
+just claim) that:
 
 1. The math is identical to floating-point precision on the same inputs.
 2. The calling conventions line up well enough that porting is trivial.

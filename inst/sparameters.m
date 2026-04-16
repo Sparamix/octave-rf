@@ -21,10 +21,10 @@
 ## @item @code{Frequencies} --- @var{K}x1 column vector of frequencies in Hz
 ## @end itemize
 ##
-## This function is an Octave replacement for the MATLAB RF Toolbox
-## @code{sparameters} class, with a compatible interface for the IEEE P370
-## de-embedding workflow.  It does not support reading from Touchstone files
-## (use a dedicated reader for that).
+## Provides a struct with the same two primary fields as MATLAB RF Toolbox's
+## @code{sparameters} class (@code{.Parameters}, @code{.Frequencies}), so the
+## IEEE P370 de-embedding workflow runs identically on either side.  This
+## function does not parse Touchstone files (use a dedicated reader).
 ##
 ## @seealso{rfparam, cascadesparams, deembedsparams, embedsparams}
 ## @end deftypefn
