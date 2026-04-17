@@ -1,6 +1,6 @@
 # octave-rf Phase V Validation Report
 
-**Date**: 2026-04-17 02:15:11  
+**Date**: 2026-04-17 09:38:26  
 **MATLAB**: MATLAB RF Toolbox (25.2.0.2998904 (R2025b))  
 **Octave**: octave-rf (11.1.0)  
 **Python**: scikit-rf 1.11.0 (Python 3.14.3, numpy 2.4.3, skrf 1.11.0)  
@@ -9,9 +9,23 @@
 
 **108 PASS / 0 FAIL** across 108 pair-wise comparisons.
 
-## Tolerance rule
+## Metrics and tolerance rule
 
-A field PASSES if either `max|delta| <= tol_abs` OR `max_rel <= tol_rel`.
+| Column | Definition |
+|---|---|
+| max\|Δ\| | Maximum absolute element-wise difference: `max(abs(A - B))` across all (port, port, freq) elements |
+| max_rel | Maximum relative element-wise difference: `max(abs(A - B) ./ max(abs(A), abs(B)))` — how large the error is compared to the signal magnitude |
+| tol_abs | Absolute tolerance threshold |
+| tol_rel | Relative tolerance threshold |
+
+Both metrics are needed because converted parameters can have very
+different magnitudes.  For example, Z-parameters (impedance) are in the
+hundreds of ohms, so a max\|Δ\| of 2e-12 on a 1000-ohm element is
+actually max_rel = 2e-15 — bit-identical at double precision.  Using only
+max\|Δ\| would wrongly flag it; using only max_rel would miss errors on
+near-zero elements.
+
+A field **PASSES** if either `max|delta| <= tol_abs` OR `max_rel <= tol_rel`.
 
 | Tier | tol_abs | tol_rel | Description |
 |---|---|---|---|

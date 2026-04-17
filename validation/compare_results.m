@@ -13,6 +13,20 @@
 %%                 with scikit-rf installed)
 %%   4. Run this script from validation/.
 %%
+%% Metrics:
+%%   max|delta| — maximum absolute element-wise difference: max(abs(A-B))
+%%                across all (port, port, freq) elements.
+%%   max_rel    — maximum relative element-wise difference:
+%%                max(abs(A-B) ./ max(abs(A), abs(B))), i.e. how large
+%%                the error is relative to the signal magnitude.
+%%
+%% Both are needed because converted parameters can have very different
+%% magnitudes.  For example, Z-parameters (impedance) are in the hundreds
+%% of ohms, so a max|delta| of 2e-12 on a 1000-ohm element is actually
+%% max_rel = 2e-15 — bit-identical at double-precision.  Using only
+%% max|delta| would wrongly flag it; using only max_rel would miss errors
+%% on near-zero elements.
+%%
 %% Tolerance rule: PASS if  max|delta| <= tol_abs  OR  max_rel <= tol_rel.
 %% Per-tier tolerances:
 %%   Tier 1 (hardcoded conversions):        abs 1e-12,  rel 1e-12
@@ -213,8 +227,21 @@ else
     fprintf (fid, '## Summary\n\n');
     fprintf (fid, '**%d PASS / %d FAIL** across %d pair-wise comparisons.\n\n', ...
              total_pass, total_fail, length (all_report_rows));
-    fprintf (fid, '## Tolerance rule\n\n');
-    fprintf (fid, 'A field PASSES if either `max|delta| <= tol_abs` OR `max_rel <= tol_rel`.\n\n');
+    fprintf (fid, '## Metrics and tolerance rule\n\n');
+    fprintf (fid, '| Column | Definition |\n');
+    fprintf (fid, '|---|---|\n');
+    fprintf (fid, '| max\\|Δ\\| | Maximum absolute element-wise difference: `max(abs(A - B))` across all (port, port, freq) elements |\n');
+    fprintf (fid, '| max_rel | Maximum relative element-wise difference: `max(abs(A - B) ./ max(abs(A), abs(B)))` — how large the error is compared to the signal magnitude |\n');
+    fprintf (fid, '| tol_abs | Absolute tolerance threshold |\n');
+    fprintf (fid, '| tol_rel | Relative tolerance threshold |\n');
+    fprintf (fid, '\n');
+    fprintf (fid, 'Both metrics are needed because converted parameters can have very\n');
+    fprintf (fid, 'different magnitudes.  For example, Z-parameters (impedance) are in the\n');
+    fprintf (fid, 'hundreds of ohms, so a max\\|Δ\\| of 2e-12 on a 1000-ohm element is\n');
+    fprintf (fid, 'actually max_rel = 2e-15 — bit-identical at double precision.  Using only\n');
+    fprintf (fid, 'max\\|Δ\\| would wrongly flag it; using only max_rel would miss errors on\n');
+    fprintf (fid, 'near-zero elements.\n\n');
+    fprintf (fid, 'A field **PASSES** if either `max|delta| <= tol_abs` OR `max_rel <= tol_rel`.\n\n');
     fprintf (fid, '| Tier | tol_abs | tol_rel | Description |\n');
     fprintf (fid, '|---|---|---|---|\n');
     fprintf (fid, '| Tier 1 | %.0e | %.0e | Hardcoded 2/3/4-port conversions and mixed-mode |\n', tol_abs.tier1, tol_rel.tier1);
