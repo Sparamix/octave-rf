@@ -111,3 +111,10 @@ engineering decisions.  Every commit was reviewed before merging.
 ## License
 
 BSD-3-Clause — see [COPYING](COPYING).
+
+
+---
+
+**Note**: This tool is intended for educational, not mission-critical use. While we strive for accuracy, please always validate critical results with established professional tools.
+
+<p align="center">Made with ❤️ for the Signal Integrity Community</p>
