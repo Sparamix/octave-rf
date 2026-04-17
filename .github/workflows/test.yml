@@ -1,16 +1,12 @@
-name: Octave Tests
+name: Octave BIST
 on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        octave: ['8.4.0', '9.2.0']
     steps:
       - uses: actions/checkout@v4
-      - uses: matlab-actions/setup-octave@v1
-        with:
-          octave-version: ${{ matrix.octave }}
+      - name: Install Octave
+        run: sudo apt-get update && sudo apt-get install -y octave
       - name: Run BIST tests
         run: |
           octave --no-gui -q --eval "
