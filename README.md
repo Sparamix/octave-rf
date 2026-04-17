@@ -11,6 +11,11 @@ Toolbox syntax.
 Do not depend on this package for production work yet. No installable tarball
 exists; there is no `pkg install` URL to point at.
 
+## Validation
+
+Cross-validated against MATLAB R2025b RF Toolbox — 36/36 tests pass to
+floating-point precision. See the [validation report](doc/VALIDATION_REPORT_MATLAB_R2025b.md).
+
 ## License
 
 BSD-3-Clause — see [COPYING](COPYING).
