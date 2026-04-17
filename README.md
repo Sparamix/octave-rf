@@ -67,6 +67,47 @@ pkg test rf          % if installed as a package
 
 GNU Octave >= 6.0.0.  No additional dependencies.
 
+## :warning: AI-Assisted Development Disclosure
+
+This project was developed with the assistance of **Claude Opus 4.6**
+(Anthropic).  We believe in full transparency about AI involvement in
+engineering work.
+
+**We practice responsible vibe-coding.**  AI accelerates development, but
+every function in this package goes through a rigorous verification and
+validation protocol before it ships:
+
+1. **Equation verification against textbooks** — every formula was checked
+   against the physical books (Pozar, Pupalaikis, Hall & Heck) with exact
+   page and equation numbers recorded in the source code and in
+   [doc/REFERENCES.md](doc/REFERENCES.md).  This process caught and
+   corrected several wrong citations that existed in the original
+   documentation.
+
+2. **Three-way cross-validation to floating-point precision** — every
+   function is validated against MATLAB RF Toolbox and scikit-rf
+   independently.  108/108 pair-wise comparisons pass.  This process
+   caught a T-parameter convention mismatch that was fixed before
+   release — proof that the validation protocol works.
+
+3. **100 built-in self-tests (BIST)** — every function has inline tests
+   that run on `pkg test rf`.  Tests cover known-answer values, round-trip
+   identities, edge cases, and error paths.
+
+4. **Clean-room implementation** — all code was written from published
+   mathematical definitions in academic textbooks.  No proprietary MATLAB
+   source code was referenced or reverse-engineered.
+
+5. **Open to community scrutiny** — all validation reports, textbook
+   references, and test infrastructure are included in the repository.
+   We welcome independent verification, bug reports, and feedback via
+   [GitHub Issues](https://github.com/Sparamix/octave-rf/issues).
+
+The AI assisted with code generation, documentation, and the systematic
+verification workflow.  The human author (a signal integrity engineer)
+directed the architecture, reviewed every output, and made all
+engineering decisions.  Every commit was reviewed before merging.
+
 ## License
 
 BSD-3-Clause — see [COPYING](COPYING).
