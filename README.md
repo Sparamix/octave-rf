@@ -45,7 +45,9 @@ full function-by-function comparison.
 Three-way cross-validated against MATLAB R2025b RF Toolbox and scikit-rf
 1.11.0 — 108/108 pair-wise tests pass to floating-point precision.
 See the [3-way report](doc/VALIDATION_REPORT_3WAY.md) and the
-[MATLAB-only report](doc/VALIDATION_REPORT_MATLAB_R2025b.md).
+[MATLAB-only report R2025b](doc/VALIDATION_REPORT_MATLAB_R2025b.md).
+
+To double-check backwards-compatibility, an additional validation was performed against [MATLAB R2020b report](doc/VALIDATION_REPORT_MATLAB_R2020b.md).
 
 ## Tests
 
