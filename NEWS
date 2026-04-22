@@ -53,5 +53,9 @@ Initial release.
 - 100 built-in self-tests (BIST), 0 failures
 - Cross-validated against MATLAB R2025b RF Toolbox and scikit-rf 1.11.0
   to floating-point precision (108/108 pair-wise tests pass)
+- Backwards-compatibility cross-validated against MATLAB R2020b
+  (9.9.0.2037887, RF Toolbox) — 36/36 pair-wise tests pass
+  (144/144 total across all comparison pairs; see
+  doc/VALIDATION_REPORT_MATLAB_R2020b.md)
 - All textbook references verified against physical books (Pozar,
   Pupalaikis, Hall & Heck)
