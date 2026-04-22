@@ -137,6 +137,77 @@ pkg test rf          % if installed as a package
 
 GNU Octave >= 6.0.0.  No additional dependencies.
 
+## Contributing
+
+Contributions are very welcome — bug reports, test cases, new functions,
+performance improvements, typo hunts, all of it.
+
+### Getting in touch
+
+- **Bug reports and feature requests:** open an
+  [issue](https://github.com/Sparamix/octave-rf/issues).  For bugs,
+  please include your Octave version (`ver`), a minimal reproducer,
+  and the Touchstone file if one is involved.
+- **General questions, design discussion, or "is this a bug?":** use
+  [GitHub Discussions](https://github.com/Sparamix/octave-rf/discussions)
+  or ping the [Octave Discourse](https://octave.discourse.group/).
+
+### Submitting a pull request
+
+Fork → branch → push → PR against `main`.  For a PR to be merged it
+must satisfy all of the following:
+
+1. **All BIST tests pass.** The GitHub Actions
+   [Octave BIST](https://github.com/Sparamix/octave-rf/actions/workflows/test.yml)
+   workflow runs on every push and must stay green.  Run locally first:
+
+   ```octave
+   pkg load rf
+   pkg test rf                       % or the per-file loop from "Tests" above
+   ```
+
+2. **New code ships with new BIST blocks.** Any new function, or any
+   new code path in an existing function, needs inline `%!test` /
+   `%!assert` blocks.  Cover known-answer values, round-trip
+   identities, edge cases, and error paths.  Match the style of
+   existing `inst/*.m` files.
+
+3. **Validation proof for new math.** If you're adding or modifying a
+   network-parameter conversion, cascade/de-embed routine, or similar,
+   numerically compare against MATLAB RF Toolbox or scikit-rf and
+   report `max|Δ|` in the PR description.  The tolerance tiers and
+   report format in
+   [`doc/VALIDATION_REPORT_MATLAB_R2025b.md`](doc/VALIDATION_REPORT_MATLAB_R2025b.md)
+   are the reference.  If you can't reach a reference implementation,
+   say so and propose an alternative (e.g. textbook analytical result).
+
+4. **Textbook citation for new formulas.** Every mathematical operation
+   in `inst/` carries an exact page + equation reference to Pozar,
+   Pupalaikis, Hall & Heck, or an equivalent published source.  New
+   code should too — see existing functions for the comment format and
+   [`doc/REFERENCES.md`](doc/REFERENCES.md) for the catalog of sources
+   in use.
+
+5. **Preserve MATLAB RF Toolbox compatibility.** Function signatures
+   match MATLAB's — that's a load-bearing promise of the package.  If a
+   change would break that (or if MATLAB's behavior itself is wrong),
+   call it out explicitly and update
+   [`doc/MATLAB_COMPATIBILITY_GUIDE.md`](doc/MATLAB_COMPATIBILITY_GUIDE.md).
+
+6. **Update `NEWS` and `INDEX`.** If you add, rename, or remove a
+   function, both files need the corresponding entry so the next
+   release's changelog and the Octave Packages listing stay accurate.
+
+### Coding style
+
+Match the surrounding `.m` files — 2-space indent, a space before
+function parentheses (`s2t (s.Parameters)`, not `s2t(s.Parameters)`),
+inline comments that explain the *physics*, not just the code.  Keep
+functions single-purpose; split helpers into their own `inst/` files.
+
+All contributions are licensed under the project's
+[BSD-3-Clause license](COPYING).
+
 ## :warning: AI-Assisted Development Disclosure
 
 This project was developed with the assistance of **Claude Opus 4.6**
