@@ -1,24 +1,89 @@
-# octave-rf
+<p align="center">
+  <img src="doc/icon.png" alt="octave-rf" width="150" height="150">
+</p>
+
+<h1 align="center">octave-rf</h1>
+
+<p align="center">
+  <a href="https://github.com/Sparamix/octave-rf/releases/latest"><img src="https://img.shields.io/github/v/release/Sparamix/octave-rf?label=release" alt="release"></a>
+  <a href="COPYING"><img src="https://img.shields.io/badge/license-BSD--3--Clause-blue" alt="license"></a>
+  <a href="https://github.com/Sparamix/octave-rf/actions/workflows/test.yml"><img src="https://github.com/Sparamix/octave-rf/actions/workflows/test.yml/badge.svg" alt="Octave BIST"></a>
+</p>
 
 S-parameter network utilities for GNU Octave.  Enables IEEE P370
 de-embedding code to run independently in Octave while remaining
 compatible with MATLAB RF Toolbox syntax.
 
-**Status**: 🚧 Work in progress — not yet released as an installable package.
+**Current release: v0.1.0** (2026-04-17) — see
+[Releases](https://github.com/Sparamix/octave-rf/releases) for the
+signed tarball, or install from the
+[Octave Packages index](https://gnu-octave.github.io/packages/rf/) once
+the registration PR is merged.
 
-## Quick example
+## Install
 
 ```octave
-addpath ('inst');                          % or: pkg load rf (after install)
+% From the v0.1.0 GitHub release (works today)
+pkg install 'https://github.com/Sparamix/octave-rf/releases/download/v0.1.0/rf-0.1.0.tar.gz'
+pkg load rf
 
-s = sparameters ('examples/case_01_2xThru.s2p');   % read Touchstone file
-T = s2t (s.Parameters);                   % S -> T (chain scattering)
-Z = s2z (s.Parameters, 50);               % S -> Z (impedance)
-S21 = rfparam (s, 2, 1);                  % extract S21 column vector
-
-sc = cascadesparams (s, s);               % cascade two networks
-[Sdd, Sdc, Scd, Scc] = s2smm (s.Parameters);   % mixed-mode (4-port)
+% After the gnu-octave/packages registration PR is merged
+pkg install -forge rf
+pkg load rf
 ```
+
+Or run straight from a clone without installing:
+
+```octave
+addpath ('inst');
+```
+
+## Examples
+
+### 1) Load and plot an S-parameter file
+
+```octave
+pkg load rf                                            % (or addpath('inst'))
+
+s   = sparameters ('examples/case_01_2xThru.s2p');     % read Touchstone
+f   = s.Frequencies;                                   % Hz, column vector
+S21 = rfparam (s, 2, 1);                               % extract S21 as complex vector
+                                                       % equivalent: squeeze(s.Parameters(2,1,:))
+
+figure;
+subplot (2, 1, 1);
+  plot (f/1e9, 20*log10(abs(S21)), 'LineWidth', 1.2);
+  grid on; ylabel ('|S_{21}| (dB)');
+  title ('case\_01\_2xThru — insertion loss');
+subplot (2, 1, 2);
+  plot (f/1e9, unwrap(angle(S21))*180/pi);             % unwrap avoids 180° jumps
+  grid on; xlabel ('Frequency (GHz)'); ylabel ('\angle S_{21} (deg)');
+```
+
+### 2) S ↔ T conversion (chain scattering)
+
+T-parameters cascade by matrix multiplication, which is why de-embedding
+routines convert S → T, multiply/invert, then convert back.  The
+round-trip is exact to floating-point precision:
+
+```octave
+pkg load rf
+
+s = sparameters ('examples/case_01_2xThru.s2p');
+
+T = s2t (s.Parameters);                                % S -> T  (MATLAB element ordering)
+S = t2s (T);                                           % T -> S  (round-trip)
+
+err = max (abs (s.Parameters(:) - S(:)));
+printf ('S -> T -> S round-trip max|err| = %.2e\n', err);
+                                                       % -> ~5e-16  (machine precision)
+
+% Cascade two identical networks via T-matrix multiplication
+P2 = cascadesparams (s.Parameters, s.Parameters);      % raw N-D arrays in/out
+```
+
+See [`examples/`](examples/) for runnable demos covering de-embedding,
+mixed-mode conversion, and more.
 
 ## Functions (26)
 
@@ -42,12 +107,15 @@ full function-by-function comparison.
 
 ## Validation
 
-Three-way cross-validated against MATLAB R2025b RF Toolbox and scikit-rf
-1.11.0 — 108/108 pair-wise tests pass to floating-point precision.
-See the [3-way report](doc/VALIDATION_REPORT_3WAY.md) and the
-[MATLAB-only report R2025b](doc/VALIDATION_REPORT_MATLAB_R2025b.md).
+Cross-validated against three reference implementations — **144/144
+pair-wise tests pass** to floating-point precision:
 
-To double-check backwards-compatibility, an additional validation was performed against [MATLAB R2020b report](doc/VALIDATION_REPORT_MATLAB_R2020b.md).
+| Comparison | Tests | Report |
+|---|---|---|
+| MATLAB R2025b vs octave-rf | 36/36 | [report](doc/VALIDATION_REPORT_MATLAB_R2025b.md) |
+| scikit-rf 1.11.0 vs octave-rf | 36/36 | [3-way report](doc/VALIDATION_REPORT_3WAY.md) |
+| MATLAB R2025b vs scikit-rf | 36/36 | [3-way report](doc/VALIDATION_REPORT_3WAY.md) |
+| MATLAB R2020b vs octave-rf (backwards-compat) | 36/36 | [report](doc/VALIDATION_REPORT_MATLAB_R2020b.md) |
 
 ## Tests
 
@@ -86,9 +154,9 @@ validation protocol before it ships:
    corrected several wrong citations that existed in the original
    documentation.
 
-2. **Three-way cross-validation to floating-point precision** — every
-   function is validated against MATLAB RF Toolbox and scikit-rf
-   independently.  108/108 pair-wise comparisons pass.  This process
+2. **Cross-validation to floating-point precision** — every function is
+   validated against MATLAB RF Toolbox (R2025b and R2020b) and scikit-rf
+   independently.  144/144 pair-wise comparisons pass.  This process
    caught a T-parameter convention mismatch that was fixed before
    release — proof that the validation protocol works.
 
